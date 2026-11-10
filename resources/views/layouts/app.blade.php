@@ -88,7 +88,7 @@
     </nav>
 
     <!-- Main Page Content -->
-    <main class="container py-4 grow">
+    <main class="container py-4 flex-grow-1">
         <!-- Flash Success Alert -->
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">

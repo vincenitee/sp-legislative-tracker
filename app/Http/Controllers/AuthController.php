@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
@@ -26,7 +26,7 @@ class AuthController extends Controller
                 ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
-        return back()->withErrors(['email' => 'The provided credentials does not match our records'])->onlyInput('email');
+        return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->onlyInput('email');
     }
 
     public function logout(Request $request)
@@ -34,7 +34,7 @@ class AuthController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
-        $request->session()->regenerate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'You have been logged out successfully.');
     }
