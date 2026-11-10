@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\PublicSearchController;
-use App\Models\Ordinance;
-use App\Models\Resolution;
+use App\Http\Controllers\ResolutionController;
 use Illuminate\Support\Facades\Route;
 
 // Public Legislative Search Routes
@@ -14,7 +14,7 @@ Route::get('/records/resolution/{resolution}', [PublicSearchController::class, '
 // Guest Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'index'])->name('login.submit');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 });
 
 // Protected Adminisrtative Routes
@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::redirect('/', '/admin/ordinances');
 
-        Route::resource('ordinances', Ordinance::class);
-        Route::resource('resolution', Resolution::class);
+        Route::resource('ordinances', OrdinanceController::class);
+        Route::resource('resolutions', ResolutionController::class);
     });
 });
